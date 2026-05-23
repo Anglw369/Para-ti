@@ -102,7 +102,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Pantalla Final: El Poema de Buenas Noches */
+        /* Pantalla Final: El Poema Ajustado */
         .poem-screen { display: none; text-align: left; }
         .poem-screen h2 { text-align: center; color: #0f172a; font-size: 1.4rem; margin-bottom: 10px; }
         
@@ -184,8 +184,7 @@
                 <p>Ojalá tengas unos <span class="highlight">dulces sueños</span>,</p>
                 <p>de esos que te hagan despertar con una sonrisa.</p>
                 <br>
-                <p>Descansa por completo, te lo mereces,</p>
-                <p>y que la noche sea tan pacífica como nuestra conexión.</p>
+                <p>Descansa por completo, te lo mereces.</p>
             </div>
 
             <p class="footer-msg">✨ Que descanses bonito. ✨</p>
@@ -210,6 +209,7 @@
             }
         };
 
+        // Usa una pestaña de incógnito o escribe localStorage.clear(); en la consola para resetear tus pruebas locales
         function selectFlower(flowerName, keyword) {
             localStorage.setItem('userFlowerKeyword', keyword);
             document.getElementById('screen-choice').style.display = 'none';
@@ -217,7 +217,6 @@
             document.getElementById('generated-keyword').textContent = keyword;
         }
 
-        // Para probarlo tú mismo, recuerda usar una pestaña de incógnito o escribir localStorage.clear(); en la consola (F12)
         function verifyKeyword() {
             const inputVal = document.getElementById('input-keyword').value.trim().toUpperCase();
             if (validKeywords.includes(inputVal)) {
