@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Detalle Para Ti</title>
+    <title>Un Detalle Especial</title>
     <style>
-        /* Estilos generales y fondo */
         body {
             margin: 0;
             padding: 0;
@@ -13,271 +12,222 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); /* Fondo suave y limpio */
+            background: linear-gradient(135deg, #1a1c29 0%, #32364d 100%); /* Fondo más nocturno */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            color: #333;
         }
 
-        /* Contenedor principal */
-        .wrapper {
-            position: relative;
+        .card {
+            background-color: rgba(255, 255, 255, 0.93);
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             text-align: center;
-            width: 85%;
-            max-width: 400px;
+            max-width: 380px;
+            width: 88%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
-        /* Pantalla de inicio - Botón */
-        #start-screen {
+        h1 { color: #2d3748; font-size: 1.5rem; margin-bottom: 12px; }
+        p { color: #4a5568; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+
+        /* Cuadrícula optimizada para 8 flores (2 por fila) */
+        .flower-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+            max-height: 320px;
+            overflow-y: auto; /* Por si el cel es muy chico, permite hacer scroll sutil */
+            padding: 5px;
+        }
+
+        .btn-flower {
             background-color: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            border: 2px solid #e2e8f0;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        #start-btn {
-            background-color: #ff6b6b;
+        .btn-flower:hover {
+            border-color: #cbd5e0;
+            transform: translateY(-2px);
+            background-color: #f7fafc;
+        }
+
+        .flower-emoji { font-size: 2rem; display: block; margin-bottom: 4px; }
+
+        /* Pantalla del código secreto */
+        .secret-box { display: none; margin-top: 10px; }
+        
+        .keyword-display {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2b6cb0;
+            background-color: #ebf8ff;
+            padding: 12px 25px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 15px 0;
+            letter-spacing: 1.5px;
+            border: 1px dashed #bee3f8;
+        }
+
+        input[type="text"] {
+            width: 85%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"]:focus { border-color: #4299e1; }
+
+        .btn-submit {
+            background-color: #2d3748;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.3rem;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-            transition: transform 0.2s ease;
-        }
-
-        #start-btn:hover { transform: scale(1.05); }
-
-        /* Contenedor del contenido (Poema y Ramo) */
-        #content {
-            display: none;
-            background-color: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        /* Estilos del Poema */
-        .poem-container {
-            margin-top: 20px;
-            text-align: left;
-            line-height: 1.7;
-            color: #555;
+            padding: 12px 35px;
+            border-radius: 25px;
             font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: background 0.2s;
         }
 
-        .highlight {
-            color: #ff6b6b;
-            font-weight: 600;
-        }
+        .btn-submit:hover { background-color: #1a202c; }
 
-        /* --- Estilos del Ramo de Flores en CSS --- */
-        .bouquet {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            gap: 15px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease 0.5s, transform 1s ease 0.5s; /* Animación retrasada */
-        }
-
-        /* Definición general de flor y tallo */
-        .flower {
-            position: relative;
-            width: 40px;
-            height: 40px;
-        }
-
-        .stem {
-            position: absolute;
-            bottom: -50px;
-            left: 50%;
-            width: 3px;
-            height: 0;
-            background-color: #55a630;
-            transform: translateX(-50%);
-            transition: height 1s ease 1s; /* Crece después de la flor */
-        }
-
-        /* --- 🌹 Rosa --- */
-        .petal { position: absolute; border-radius: 50%; background-color: #e63946; }
+        /* Pantalla Final: El Poema */
+        .poem-screen { display: none; text-align: left; }
+        .poem-screen h2 { text-align: center; color: #1a202c; font-size: 1.4rem; margin-bottom: 15px; }
         
-        .rose-center {
-            width: 20px; height: 20px;
-            top: 10px; left: 10px;
-            z-index: 5;
-        }
-
-        .rose-petal-1 { width: 30px; height: 30px; top: 5px; left: 5px; opacity: 0.8; z-index: 4; }
-        .rose-petal-2 { width: 40px; height: 40px; top: 0; left: 0; opacity: 0.6; z-index: 3; }
-
-        /* --- 🌻 Girasol --- */
-        .sunflower-center {
-            position: absolute;
-            width: 15px; height: 15px;
-            background-color: #582f0e;
-            border-radius: 50%;
-            top: 12.5px; left: 12.5px;
-            z-index: 5;
-        }
-
-        .sunflower-petal {
-            position: absolute;
-            width: 10px; height: 25px;
-            background-color: #fca311;
-            border-radius: 10px;
-            left: 15px;
-            top: -2.5px;
-            transform-origin: bottom center;
-        }
-
-        /* --- 🌷 Tulipán --- */
-        .tulip-petal {
-            position: absolute;
-            width: 15px; height: 35px;
-            background-color: #ff8fa3;
-            border-radius: 15px 15px 0 0;
-            top: 5px;
-        }
-        .tulip-p-1 { left: 5px; transform: rotate(-10deg); }
-        .tulip-p-2 { left: 15px; z-index: 2; }
-        .tulip-p-3 { left: 25px; transform: rotate(10deg); }
-
-        /* --- 🌼 Margarita --- */
-        .daisy-center {
-            position: absolute;
-            width: 12px; height: 12px;
-            background-color: #fee440;
-            border-radius: 50%;
-            top: 14px; left: 14px;
-            z-index: 5;
-        }
-
-        .daisy-petal {
-            position: absolute;
-            width: 6px; height: 18px;
-            background-color: #fff;
-            border-radius: 10px;
-            left: 17px;
-            top: 2px;
-            transform-origin: bottom center;
-            border: 1px solid #ddd;
-        }
-
-        /* --- Estilo de la carta del Poema --- */
-        .note {
+        .poem-lines {
             font-style: italic;
-            border-left: 3px solid #ff6b6b;
+            border-left: 3px solid #4a5568;
             padding-left: 15px;
-            color: #777;
+            color: #2d3748;
+            line-height: 1.8;
+            margin-top: 15px;
+            font-size: 0.98rem;
         }
 
+        .highlight { color: #b83280; font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div id="start-screen">
-            <p>Hola jaja, espero que esto te saque una sonrisa, por que ahora si me prepare</p>
-            <button id="start-btn" onclick="revealPoem()">Pícame</button>
-        </div>
-
-        <div id="content">
+    <div class="card">
+        
+        <div id="screen-choice">
+            <h1>Para terminar el día... ✨</h1>
+            <p>Espero que tu día haya sido bonito y perfecto. Para darte tu detalle de buenas noches, elige tu flor favorita de la lista:</p>
             
-            <div class="poem-container">
-                <p class="highlight">Ten un buen día,</p>
-                <p>que este mensaje sea el inicio</p>
-                <p>de algo lindo hoy.</p>
-                <p>se que ya son tardes pero mereces que alguien te lo diga hoy.</p>
-                
-                <div class="note">
-                    <p>Encuentro en ti una <span class="highlight">mirada segura,</span><br>pero con un <span class="highlight">toque tímido</span> que cautiva.</p>
-                    <p>Tienes una <span class="highlight">sonrisa tan linda</span><br>que ilumina el dia al verte.</p>
-                    <p>Y esa <span class="highlight">forma de ser</span> que tienes,<br>simplemente mejora la vida.</p>
-                </div>
+            <div class="flower-options">
+                <button class="btn-flower" onclick="selectFlower('Rosa', 'CARMESÍ')">
+                    <span class="flower-emoji">🌹</span> Rosa
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Girasol', 'DESTELLO')">
+                    <span class="flower-emoji">🌻</span> Girasol
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Tulipán', 'SECRETO')">
+                    <span class="flower-emoji">🌷</span> Tulipán
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Margarita', 'ARMONÍA')">
+                    <span class="flower-emoji">🌼</span> Margarita
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Orquídea', 'MISTERIO')">
+                    <span class="flower-emoji">🪻</span> Orquídea
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Lavanda', 'MISTICA')">
+                    <span class="flower-emoji">🌿</span> Lavanda
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Lirio', 'ECLIPSE')">
+                    <span class="flower-emoji">💮</span> Lirio
+                </button>
+                <button class="btn-flower" onclick="selectFlower('Flor de Loto', 'SERENIDAD')">
+                    <span class="flower-emoji">🪷</span> Flor de Loto
+                </button>
             </div>
-
-            <div class="bouquet" id="bouquet-container">
-                <div class="flower">
-                    <div class="petal rose-center"></div>
-                    <div class="petal rose-petal-1"></div>
-                    <div class="petal rose-petal-2"></div>
-                    <div class="stem" id="stem-rose"></div>
-                </div>
-                
-                <div class="flower">
-                    <div class="tulip-petal tulip-p-1"></div>
-                    <div class="tulip-petal tulip-p-2"></div>
-                    <div class="tulip-petal tulip-p-3"></div>
-                    <div class="stem" id="stem-tulip"></div>
-                </div>
-
-                <div class="flower">
-                    <div class="daisy-center"></div>
-                    <div class="stem" id="stem-daisy"></div>
-                    </div>
-
-                <div class="flower">
-                    <div class="sunflower-center"></div>
-                    <div class="stem" id="stem-sunflower"></div>
-                    </div>
-            </div>
-
         </div>
+
+        <div id="screen-lock" class="secret-box">
+            <h1>¡Excelente elección! 🔓</h1>
+            <p>Para desbloquear tu poema de hoy, mándale esta palabra clave a Jose por mensaje:</p>
+            <div class="keyword-display" id="generated-keyword">------</div>
+            <p>Cuando la tengas, ingrésala aquí abajo para descubrir tu detalle:</p>
+            
+            <input type="text" id="input-keyword" placeholder="Escribe la palabra clave aquí...">
+            <br>
+            <button class="btn-submit" onclick="verifyKeyword()">Desbloquear Poema</button>
+        </div>
+
+        <div id="screen-poem" class="poem-screen">
+            <h2>Que tengas una linda noche ✨</h2>
+            <p>Espero que descanses bonito. Quería recordarte esto antes de que termine el día:</p>
+            
+            <div class="poem-lines">
+                <p>Me quedo pensando en tu <span class="highlight">mirada tan segura pero tímida</span>,</p>
+                <p>en esa <span class="highlight">sonrisa tan linda</span> que ilumina cualquier lugar,</p>
+                <p>y en tu <span class="highlight">forma de ser</span>, que de verdad, mejora la vida.</p>
+                <p>Que tengas un descanso perfecto.</p>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Generar pétalos de Margarita y Girasol por código (más limpio)
-        function generatePetals() {
-            const daisy = document.querySelector('.flower:nth-child(3)');
-            for (let i = 0; i < 12; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'daisy-petal';
-                petal.style.transform = `rotate(${i * 30}deg)`;
-                daisy.appendChild(petal);
-            }
+        // Lista completa de las 8 palabras clave válidas
+        const validKeywords = ["CARMESÍ", "DESTELLO", "SECRETO", "ARMONÍA", "MISTERIO", "MISTICA", "ECLIPSE", "SERENIDAD"];
 
-            const sunflower = document.querySelector('.flower:nth-child(4)');
-            for (let i = 0; i < 16; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'sunflower-petal';
-                petal.style.transform = `rotate(${i * 22.5}deg)`;
-                sunflower.appendChild(petal);
-            }
-        }
-        generatePetals();
+        // Bloqueo de seguridad al cargar la página (Evita saltarse la elección)
+        window.onload = function() {
+            const savedKeyword = localStorage.getItem('userFlowerKeyword');
+            const poemUnlocked = localStorage.getItem('poemUnlocked');
 
-        // Lógica para revelar el poema y animar el ramo
-        function revealPoem() {
-            // Ocultar pantalla de inicio
-            document.getElementById('start-screen').style.opacity = '0';
-            document.getElementById('start-screen').style.transform = 'scale(0.8)';
+            if (poemUnlocked === 'true') {
+                document.getElementById('screen-choice').style.display = 'none';
+                document.getElementById('screen-poem').style.display = 'block';
+            } else if (savedKeyword) {
+                document.getElementById('screen-choice').style.display = 'none';
+                document.getElementById('screen-lock').style.display = 'block';
+                document.getElementById('generated-keyword').textContent = savedKeyword;
+            }
+        };
+
+        // Función cuando selecciona una flor
+        function selectFlower(flowerName, keyword) {
+            localStorage.setItem('userFlowerKeyword', keyword);
             
-            setTimeout(() => {
-                document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('screen-choice').style.display = 'none';
+            document.getElementById('screen-lock').style.display = 'block';
+            document.getElementById('generated-keyword').textContent = keyword;
+        }
+
+        // Validación de la palabra clave
+        function verifyKeyword() {
+            const inputVal = document.getElementById('input-keyword').value.trim().toUpperCase();
+            
+            if (validKeywords.includes(inputVal)) {
+                localStorage.setItem('poemUnlocked', 'true');
                 
-                // Mostrar contenido con animación
-                const content = document.getElementById('content');
-                content.style.display = 'block';
-                setTimeout(() => { content.style.opacity = '1'; }, 50);
-
-                // Animar el ramo y los tallos
-                setTimeout(() => {
-                    document.getElementById('bouquet-container').style.opacity = '1';
-                    document.getElementById('bouquet-container').style.transform = 'translateY(0)';
-                    
-                    // Hacer crecer los tallos
-                    document.querySelectorAll('.stem').forEach(stem => {
-                        stem.style.height = '70px';
-                    });
-
-                }, 500); // Pequeño retraso después del poema
-
-            }, 500); // Retraso para que el botón desaparezca suavemente
+                document.getElementById('screen-lock').style.display = 'none';
+                document.getElementById('screen-poem').style.display = 'block';
+            } else {
+                alert("¡Casi! Escribe la palabra clave exactamente como te apareció.");
+            }
         }
     </script>
 </body>
