@@ -12,34 +12,32 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a1c29 0%, #32364d 100%); /* Fondo más nocturno */
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Fondo azul noche profundo */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #333;
         }
 
         .card {
-            background-color: rgba(255, 255, 255, 0.93);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 30px 20px;
             border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
             text-align: center;
             max-width: 380px;
             width: 88%;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
-        h1 { color: #2d3748; font-size: 1.5rem; margin-bottom: 12px; }
-        p { color: #4a5568; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+        h1 { color: #1e293b; font-size: 1.5rem; margin-bottom: 12px; }
+        p { color: #475569; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
 
-        /* Cuadrícula optimizada para 8 flores (2 por fila) */
+        /* Cuadrícula de 8 flores */
         .flower-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-top: 15px;
-            max-height: 320px;
-            overflow-y: auto; /* Por si el cel es muy chico, permite hacer scroll sutil */
             padding: 5px;
         }
 
@@ -47,24 +45,23 @@
             background-color: white;
             border: 2px solid #e2e8f0;
             padding: 12px 10px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-radius: 15px;
             cursor: pointer;
             transition: all 0.25s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .btn-flower:hover {
-            border-color: #cbd5e0;
+            border-color: #94a3b8;
             transform: translateY(-2px);
-            background-color: #f7fafc;
+            background-color: #f8fafc;
         }
 
-        .flower-emoji { font-size: 2rem; display: block; margin-bottom: 4px; }
+        .flower-emoji { font-size: 1.8rem; display: block; margin-bottom: 4px; }
 
         /* Pantalla del código secreto */
         .secret-box { display: none; margin-top: 10px; }
@@ -72,14 +69,14 @@
         .keyword-display {
             font-size: 1.4rem;
             font-weight: bold;
-            color: #2b6cb0;
-            background-color: #ebf8ff;
+            color: #3b82f6;
+            background-color: #eff6ff;
             padding: 12px 25px;
             border-radius: 12px;
             display: inline-block;
             margin: 15px 0;
-            letter-spacing: 1.5px;
-            border: 1px dashed #bee3f8;
+            letter-spacing: 2px;
+            border: 1px dashed #bfdbfe;
         }
 
         input[type="text"] {
@@ -94,37 +91,39 @@
             text-transform: uppercase;
         }
 
-        input[type="text"]:focus { border-color: #4299e1; }
-
         .btn-submit {
-            background-color: #2d3748;
+            background-color: #1e293b;
             color: white;
             border: none;
             padding: 12px 35px;
             border-radius: 25px;
             font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .btn-submit:hover { background-color: #1a202c; }
-
-        /* Pantalla Final: El Poema */
+        /* Pantalla Final: El Nuevo Poema de Conexión */
         .poem-screen { display: none; text-align: left; }
-        .poem-screen h2 { text-align: center; color: #1a202c; font-size: 1.4rem; margin-bottom: 15px; }
+        .poem-screen h2 { text-align: center; color: #0f172a; font-size: 1.3rem; margin-bottom: 10px; }
         
         .poem-lines {
             font-style: italic;
-            border-left: 3px solid #4a5568;
+            border-left: 3px solid #3b82f6;
             padding-left: 15px;
-            color: #2d3748;
+            color: #1e293b;
             line-height: 1.8;
-            margin-top: 15px;
-            font-size: 0.98rem;
+            margin-top: 20px;
+            font-size: 1rem;
         }
 
-        .highlight { color: #b83280; font-weight: 600; }
+        .highlight { color: #2563eb; font-weight: 600; }
+        
+        .footer-msg {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
     </style>
 </head>
 <body>
@@ -133,7 +132,7 @@
         
         <div id="screen-choice">
             <h1>Para terminar el día... ✨</h1>
-            <p>Espero que tu día haya sido bonito y perfecto. Para darte tu detalle de buenas noches, elige tu flor favorita de la lista:</p>
+            <p>Espero que tu día haya sido perfecto. Para desbloquear tu detalle de hoy, elige tu flor favorita de la lista:</p>
             
             <div class="flower-options">
                 <button class="btn-flower" onclick="selectFlower('Rosa', 'CARMESÍ')">
@@ -164,35 +163,37 @@
         </div>
 
         <div id="screen-lock" class="secret-box">
-            <h1>¡Excelente elección! 🔓</h1>
-            <p>Para desbloquear tu poema de hoy, mándale esta palabra clave a Jose por mensaje:</p>
+            <h1>Casi listo... 🔓</h1>
+            <p>Mándame esta palabra por mensaje y yo te daré el acceso para ver lo que sigue:</p>
             <div class="keyword-display" id="generated-keyword">------</div>
-            <p>Cuando la tengas, ingrésala aquí abajo para descubrir tu detalle:</p>
             
             <input type="text" id="input-keyword" placeholder="Escribe la palabra clave aquí...">
             <br>
-            <button class="btn-submit" onclick="verifyKeyword()">Desbloquear Poema</button>
+            <button class="btn-submit" onclick="verifyKeyword()">Desbloquear Detalle</button>
         </div>
 
         <div id="screen-poem" class="poem-screen">
-            <h2>Que tengas una linda noche ✨</h2>
-            <p>Espero que descanses bonito. Quería recordarte esto antes de que termine el día:</p>
+            <h2>Buenas noches ✨</h2>
+            <p>Antes de que descanses, quería decirte algo que he estado pensando...</p>
             
             <div class="poem-lines">
-                <p>Me quedo pensando en tu <span class="highlight">mirada tan segura pero tímida</span>,</p>
-                <p>en esa <span class="highlight">sonrisa tan linda</span> que ilumina cualquier lugar,</p>
-                <p>y en tu <span class="highlight">forma de ser</span>, que de verdad, mejora la vida.</p>
-                <p>Que tengas un descanso perfecto.</p>
+                <p>Tal vez <span class="highlight">no hablamos mucho por mensaje</span>,</p>
+                <p>pero la <span class="highlight">conexión que siento contigo</span></p>
+                <p>sé que es algo realmente única.</p>
+                <br>
+                <p>Los momentos que compartimos son <span class="highlight">maravillosos</span>,</p>
+                <p>tan reales y tan llenos de emoción,</p>
+                <p>que me encanta la forma en la que <span class="highlight">nos estamos conociendo.</span></p>
             </div>
+
+            <p class="footer-msg">Espero que descanses bonito. Nos vemos pronto.</p>
         </div>
 
     </div>
 
     <script>
-        // Lista completa de las 8 palabras clave válidas
         const validKeywords = ["CARMESÍ", "DESTELLO", "SECRETO", "ARMONÍA", "MISTERIO", "MISTICA", "ECLIPSE", "SERENIDAD"];
 
-        // Bloqueo de seguridad al cargar la página (Evita saltarse la elección)
         window.onload = function() {
             const savedKeyword = localStorage.getItem('userFlowerKeyword');
             const poemUnlocked = localStorage.getItem('poemUnlocked');
@@ -207,26 +208,21 @@
             }
         };
 
-        // Función cuando selecciona una flor
         function selectFlower(flowerName, keyword) {
             localStorage.setItem('userFlowerKeyword', keyword);
-            
             document.getElementById('screen-choice').style.display = 'none';
             document.getElementById('screen-lock').style.display = 'block';
             document.getElementById('generated-keyword').textContent = keyword;
         }
 
-        // Validación de la palabra clave
         function verifyKeyword() {
             const inputVal = document.getElementById('input-keyword').value.trim().toUpperCase();
-            
             if (validKeywords.includes(inputVal)) {
                 localStorage.setItem('poemUnlocked', 'true');
-                
                 document.getElementById('screen-lock').style.display = 'none';
                 document.getElementById('screen-poem').style.display = 'block';
             } else {
-                alert("¡Casi! Escribe la palabra clave exactamente como te apareció.");
+                alert("La palabra clave no es correcta. ¡Pídemela por mensaje!");
             }
         }
     </script>
