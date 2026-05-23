@@ -102,9 +102,9 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* Pantalla Final: El Nuevo Poema de Conexión */
+        /* Pantalla Final: El Poema de Buenas Noches */
         .poem-screen { display: none; text-align: left; }
-        .poem-screen h2 { text-align: center; color: #0f172a; font-size: 1.3rem; margin-bottom: 10px; }
+        .poem-screen h2 { text-align: center; color: #0f172a; font-size: 1.4rem; margin-bottom: 10px; }
         
         .poem-lines {
             font-style: italic;
@@ -120,9 +120,10 @@
         
         .footer-msg {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.85rem;
+            margin-top: 25px;
+            font-size: 0.9rem;
             color: #64748b;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -132,7 +133,7 @@
         
         <div id="screen-choice">
             <h1>Para terminar el día... ✨</h1>
-            <p>Espero que tu día haya sido perfecto. Para desbloquear tu detalle de hoy, elige tu flor favorita de la lista:</p>
+            <p>Espero que tu día haya sido bonito y perfecto. Para desbloquear tu detalle de hoy, elige tu flor favorita de la lista:</p>
             
             <div class="flower-options">
                 <button class="btn-flower" onclick="selectFlower('Rosa', 'CARMESÍ')">
@@ -174,19 +175,20 @@
 
         <div id="screen-poem" class="poem-screen">
             <h2>Buenas noches ✨</h2>
-            <p>Antes de que descanses, quería decirte algo que he estado pensando...</p>
+            <p>Antes de que cierres los ojos, quería enviarte este pequeño detalle...</p>
             
             <div class="poem-lines">
-                <p>Tal vez <span class="highlight">no hablamos mucho por mensaje</span>,</p>
-                <p>pero la <span class="highlight">conexión que siento contigo</span></p>
-                <p>sé que es algo realmente única.</p>
+                <p>Solo paso por aquí para <span class="highlight">desearte las buenas noches</span>,</p>
+                <p>y esperar que dejes atrás todo el ruido del día.</p>
                 <br>
-                <p>Los momentos que compartimos son <span class="highlight">maravillosos</span>,</p>
-                <p>tan reales y tan llenos de emoción,</p>
-                <p>que me encanta la forma en la que <span class="highlight">nos estamos conociendo.</span></p>
+                <p>Ojalá tengas unos <span class="highlight">dulces sueños</span>,</p>
+                <p>de esos que te hagan despertar con una sonrisa.</p>
+                <br>
+                <p>Descansa por completo, te lo mereces,</p>
+                <p>y que la noche sea tan pacífica como nuestra conexión.</p>
             </div>
 
-            <p class="footer-msg">Espero que descanses bonito. Nos vemos pronto.</p>
+            <p class="footer-msg">✨ Que descanses bonito. ✨</p>
         </div>
 
     </div>
@@ -215,6 +217,7 @@
             document.getElementById('generated-keyword').textContent = keyword;
         }
 
+        // Para probarlo tú mismo, recuerda usar una pestaña de incógnito o escribir localStorage.clear(); en la consola (F12)
         function verifyKeyword() {
             const inputVal = document.getElementById('input-keyword').value.trim().toUpperCase();
             if (validKeywords.includes(inputVal)) {
